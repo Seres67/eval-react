@@ -3,6 +3,8 @@ import { MovieContext } from "../../context/MoviesContext/MoviesContext";
 import { useLocation, useNavigate } from "react-router";
 import styles from "./MovieDetails.module.css";
 import { MessageContext } from "../../context/MessageContext/MessageContext";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { AuthService } from "../../services/auth";
 
 const MovieDetails = () => {
   const { showMessage } = useContext(MessageContext);
@@ -26,7 +28,7 @@ const MovieDetails = () => {
     <div className={styles["movie-details"]}>
       <div className={styles["movie-header"]}>
         <h1>{movie.title}</h1>
-        {localStorage.getItem("currentUser") && (
+        {AuthService.getCurrentUser().id === movie.userId && (
           <div className={styles["movie-actions"]}>
             <button onClick={editMovie}>Edit</button>
             <button onClick={deleteMovie}>Delete</button>
