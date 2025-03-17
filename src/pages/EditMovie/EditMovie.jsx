@@ -21,14 +21,19 @@ const EditMovie = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     movieService
-      .updateMovie(movie.id, formData)
+      .getMovieById(movie.id)
       .then((movie) => {
-        navigate("/movie-details", {
-          replace: true,
-          state: {
-            movie,
-          },
-        });
+        movieService
+          .updateMovie(movie.id, formData)
+          .then((movie) => {
+            navigate("/movie-details", {
+              replace: true,
+              state: {
+                movie,
+              },
+            });
+          })
+          .catch((err) => showMessage("error", err.message));
       })
       .catch((err) => showMessage("error", err.message));
   };
