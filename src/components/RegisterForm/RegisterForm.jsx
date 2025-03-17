@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import styles from "./RegisterForm.module.css";
+import { useNavigate } from "react-router";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const RegisterForm = () => {
     password: "",
   });
   const authService = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ const RegisterForm = () => {
       formData.email,
       formData.password,
     );
+    navigate("/movies", { replace: true });
   };
 
   const handleChange = (e) => {
